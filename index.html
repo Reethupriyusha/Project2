@@ -109,7 +109,8 @@
             height: 70px;
             border-radius: 8px;
             color: #ffffff;
-            font-size: 1.3rem;
+            font-size: 1.5rem; /* Slightly larger for regular numbers */
+            font-weight: bold;
             cursor: pointer;
             transition: all 0.2s ease;
             outline: none;
@@ -206,22 +207,22 @@
             <div class="status-badge" id="systemStatus">Status: Night Approaching</div>
         </div>
 
-        <!-- 1-9 Grid Array -->
+        <!-- Regular Numbers Grid -->
         <div class="node-matrix">
-            <button class="matrix-btn" onclick="inputNode(1)">Ⅰ</button>
-            <button class="matrix-btn" onclick="inputNode(2)">Ⅱ</button>
-            <button class="matrix-btn" onclick="inputNode(3)">Ⅲ</button>
-            <button class="matrix-btn" onclick="inputNode(4)">Ⅳ</button>
-            <button class="matrix-btn" onclick="inputNode(5)">Ⅴ</button>
-            <button class="matrix-btn" onclick="inputNode(6)">Ⅵ</button>
-            <button class="matrix-btn" onclick="inputNode(7)">Ⅶ</button>
-            <button class="matrix-btn" onclick="inputNode(8)">Ⅷ</button>
-            <button class="matrix-btn" onclick="inputNode(9)">Ⅸ</button>
+            <button class="matrix-btn" onclick="inputNode(1)">1</button>
+            <button class="matrix-btn" onclick="inputNode(2)">2</button>
+            <button class="matrix-btn" onclick="inputNode(3)">3</button>
+            <button class="matrix-btn" onclick="inputNode(4)">4</button>
+            <button class="matrix-btn" onclick="inputNode(5)">5</button>
+            <button class="matrix-btn" onclick="inputNode(6)">6</button>
+            <button class="matrix-btn" onclick="inputNode(7)">7</button>
+            <button class="matrix-btn" onclick="inputNode(8)">8</button>
+            <button class="matrix-btn" onclick="inputNode(9)">9</button>
         </div>
         
-        <!-- Dedicated 0 Row Layer -->
+        <!-- 0 Button Layer -->
         <div class="zero-row">
-            <button class="matrix-btn" onclick="inputNode(0)">🕅</button>
+            <button class="matrix-btn" onclick="inputNode(0)">0</button>
         </div>
 
         <div class="footer-tag">FROMVILLE PROTOCOL // 1978</div>
@@ -237,14 +238,14 @@
     </div>
 
     <script>
-        // Password sequence successfully updated to 1, 4, 3
+        // Password sequence is locked to 1, 4, 3
         const SEQUENCE_KEY = [1, 4, 3];
         let userSequence = [];
 
         function inputNode(nodeNum) {
             userSequence.push(nodeNum);
 
-            // Handle highlighting animations smoothly
+            // Match active background state across the array element references
             const buttons = document.querySelectorAll('.matrix-btn');
             let targetBtn = nodeNum === 0 ? buttons[9] : buttons[nodeNum - 1];
             
