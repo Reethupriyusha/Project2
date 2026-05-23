@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quantum Node Auth</title>
+    <title>Fromville Matrix System</title>
     <style>
         :root {
-            --neon-blue: #00f0ff;
-            --neon-pink: #ff007f;
-            --bg-gradient: linear-gradient(135deg, #0f0c20 0%, #06040a 100%);
-            --glass-bg: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.08);
+            --neon-blue: #3a86ff;
+            --neon-pink: #cc0000; 
+            --bg-gradient: linear-gradient(135deg, #070a12 0%, #020305 100%);
+            --glass-bg: rgba(255, 255, 255, 0.02);
+            --glass-border: rgba(255, 255, 255, 0.05);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: 'Courier New', Courier, monospace;
             -webkit-font-smoothing: antialiased;
         }
 
@@ -31,46 +31,44 @@
             overflow: hidden;
         }
 
-        /* Ambient Glow in Background */
         body::before {
             content: '';
             position: absolute;
-            width: 300px;
-            height: 300px;
+            width: 350px;
+            height: 350px;
             background: var(--neon-pink);
             border-radius: 50%;
-            filter: blur(150px);
-            opacity: 0.15;
-            top: 20%;
-            left: 25%;
+            filter: blur(160px);
+            opacity: 0.12;
+            top: 15%;
+            left: 20%;
             z-index: 0;
         }
 
         body::after {
             content: '';
             position: absolute;
-            width: 300px;
-            height: 300px;
+            width: 350px;
+            height: 350px;
             background: var(--neon-blue);
             border-radius: 50%;
-            filter: blur(150px);
-            opacity: 0.15;
-            bottom: 20%;
-            right: 25%;
+            filter: blur(160px);
+            opacity: 0.1;
+            bottom: 15%;
+            right: 20%;
             z-index: 0;
         }
 
-        /* Glassmorphic Container */
         .app-card {
             background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
             border: 1px solid var(--glass-border);
             padding: 40px 30px;
-            border-radius: 24px;
+            border-radius: 16px;
             width: 100%;
             max-width: 380px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
             text-align: center;
             z-index: 1;
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -78,71 +76,73 @@
 
         .header h2 {
             color: #ffffff;
-            font-size: 1.4rem;
-            font-weight: 600;
-            letter-spacing: -0.5px;
-            margin-bottom: 6px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
         }
 
         .status-badge {
             display: inline-block;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.03);
             padding: 6px 14px;
-            border-radius: 100px;
+            border-radius: 4px;
             font-size: 0.75rem;
-            font-weight: 500;
-            color: #a0aec0;
+            color: #cfd8dc;
             letter-spacing: 0.5px;
             margin-bottom: 35px;
-            border: 1px solid rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             transition: all 0.3s ease;
         }
 
-        /* Modernized Dot Matrix Grid */
         .node-matrix {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-bottom: 35px;
+            gap: 15px;
+            margin-bottom: 15px;
         }
 
         .matrix-btn {
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(255, 255, 255, 0.01);
             border: 1px solid var(--glass-border);
-            height: 80px;
-            border-radius: 18px;
+            height: 70px;
+            border-radius: 8px;
             color: #ffffff;
-            font-size: 1.5rem;
-            font-weight: 400;
+            font-size: 1.3rem;
             cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.2s ease;
             outline: none;
-            position: relative;
-            overflow: hidden;
         }
 
         .matrix-btn:hover {
-            background: rgba(255, 255, 255, 0.06);
-            border-color: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 255, 255, 0.15);
         }
 
         .matrix-btn:active, .matrix-btn.active {
-            background: rgba(0, 240, 255, 0.1);
-            border-color: var(--neon-blue);
-            color: var(--neon-blue);
-            box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
-            transform: scale(0.95);
+            background: rgba(204, 0, 0, 0.15);
+            border-color: var(--neon-pink);
+            color: var(--neon-pink);
+            box-shadow: 0 0 15px rgba(204, 0, 0, 0.3);
+        }
+
+        .zero-row {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .zero-row .matrix-btn {
+            width: 33.33%;
         }
 
         .footer-tag {
             font-size: 0.7rem;
-            color: #4a5568;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            color: #546e7a;
+            letter-spacing: 1.5px;
         }
 
-        /* Hidden Dashboard Style */
         .hidden-space {
             display: none;
             opacity: 0;
@@ -150,50 +150,50 @@
             align-items: center;
             justify-content: center;
             width: 100%;
-            max-width: 450px;
+            max-width: 460px;
             text-align: center;
             z-index: 2;
             padding: 40px 30px;
-            background: rgba(10, 5, 15, 0.4);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border-radius: 32px;
-            border: 1px solid rgba(255, 0, 127, 0.15);
-            box-shadow: 0 25px 60px rgba(255, 0, 127, 0.1);
-            transition: opacity 1s ease;
+            background: rgba(5, 7, 12, 0.6);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border-radius: 16px;
+            border: 1px solid rgba(204, 0, 0, 0.2);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+            transition: opacity 0.8s ease;
         }
 
-        .love-icon-container {
-            position: relative;
+        .talisman-container {
             margin-bottom: 25px;
         }
 
-        .love-icon {
-            font-size: 3.5rem;
-            color: var(--neon-pink);
+        .talisman-icon {
+            font-size: 3rem;
+            color: #b0bec5;
             display: inline-block;
-            animation: modernPulse 1.2s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
-            filter: drop-shadow(0 0 15px rgba(255, 0, 127, 0.6));
+            animation: modernPulse 2s infinite alternate ease-in-out;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
         }
 
         .hidden-space h1 {
             color: #ffffff;
-            font-size: 1.8rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
             margin-bottom: 15px;
         }
 
         .hidden-space p {
-            color: #e2e8f0;
-            font-size: 1.05rem;
-            line-height: 1.6;
+            color: #eceff1;
+            font-size: 0.95rem;
+            line-height: 1.7;
             font-weight: 300;
+            text-align: justify;
         }
 
         @keyframes modernPulse {
-            0% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(255, 0, 127, 0.4)); }
-            100% { transform: scale(1.12); filter: drop-shadow(0 0 25px rgba(255, 0, 127, 0.8)); }
+            0% { transform: scale(1); opacity: 0.7; }
+            100% { transform: scale(1.05); opacity: 1; }
         }
     </style>
 </head>
@@ -202,53 +202,60 @@
     <!-- Main Front Dashboard -->
     <div class="app-card" id="authInterface">
         <div class="header">
-            <h2>Cryptographic Node Vault</h2>
-            <div class="status-badge" id="systemStatus">Ready • Awaiting Signature</div>
+            <h2>Talisman Activation Terminal</h2>
+            <div class="status-badge" id="systemStatus">Status: Night Approaching</div>
         </div>
 
+        <!-- 1-9 Grid Array -->
         <div class="node-matrix">
-            <button class="matrix-btn" onclick="inputNode(1)">1</button>
-            <button class="matrix-btn" onclick="inputNode(2)">2</button>
-            <button class="matrix-btn" onclick="inputNode(3)">3</button>
-            <button class="matrix-btn" onclick="inputNode(4)">4</button>
-            <button class="matrix-btn" onclick="inputNode(5)">5</button>
-            <button class="matrix-btn" onclick="inputNode(6)">6</button>
-            <button class="matrix-btn" onclick="inputNode(7)">7</button>
-            <button class="matrix-btn" onclick="inputNode(8)">8</button>
-            <button class="matrix-btn" onclick="inputNode(9)">9</button>
+            <button class="matrix-btn" onclick="inputNode(1)">Ⅰ</button>
+            <button class="matrix-btn" onclick="inputNode(2)">Ⅱ</button>
+            <button class="matrix-btn" onclick="inputNode(3)">Ⅲ</button>
+            <button class="matrix-btn" onclick="inputNode(4)">Ⅳ</button>
+            <button class="matrix-btn" onclick="inputNode(5)">Ⅴ</button>
+            <button class="matrix-btn" onclick="inputNode(6)">Ⅵ</button>
+            <button class="matrix-btn" onclick="inputNode(7)">Ⅶ</button>
+            <button class="matrix-btn" onclick="inputNode(8)">Ⅷ</button>
+            <button class="matrix-btn" onclick="inputNode(9)">Ⅸ</button>
+        </div>
+        
+        <!-- Dedicated 0 Row Layer -->
+        <div class="zero-row">
+            <button class="matrix-btn" onclick="inputNode(0)">🕅</button>
         </div>
 
-        <div class="footer-tag">Secured Layer v2.4.0</div>
+        <div class="footer-tag">FROMVILLE PROTOCOL // 1978</div>
     </div>
 
     <!-- Live Hidden Space Dashboard -->
     <div class="hidden-space" id="loveDashboard">
-        <div class="love-icon-container">
-            <span class="love-icon">💖</span>
+        <div class="talisman-container">
+            <span class="talisman-icon">🪨</span>
         </div>
-        <h1>Decryption Successful</h1>
-        <p>You found the hidden space. No matter how much code I write, you are always my favorite line. Happy coding together! 🥰</p>
+        <h1>Talisman Sealed Successfully</h1>
+        <p>The doors are secured. The creatures are outside whispering in the dark, but they cannot enter as long as the stone remains hung. Keep looking for the lighthouse, avoid the cicadas, and remember Boyd's words: "I gotta go." You are safe inside the colony house tonight. 🌲🌲</p>
     </div>
 
     <script>
-        // Set your valid 3-digit grid sequence combination here
+        // Password sequence successfully updated to 1, 4, 3
         const SEQUENCE_KEY = [1, 4, 3];
         let userSequence = [];
 
         function inputNode(nodeNum) {
             userSequence.push(nodeNum);
 
-            // Add smooth active class state
+            // Handle highlighting animations smoothly
             const buttons = document.querySelectorAll('.matrix-btn');
-            buttons[nodeNum - 1].classList.add('active');
-            setTimeout(() => buttons[nodeNum - 1].classList.remove('active'), 250);
+            let targetBtn = nodeNum === 0 ? buttons[9] : buttons[nodeNum - 1];
+            
+            targetBtn.classList.add('active');
+            setTimeout(() => targetBtn.classList.remove('active'), 250);
 
             if (userSequence.length === 3) {
                 if (userSequence[0] === SEQUENCE_KEY[0] && 
                     userSequence[1] === SEQUENCE_KEY[1] && 
                     userSequence[2] === SEQUENCE_KEY[2]) {
                     
-                    // Transition to hidden space seamlessly
                     const card = document.getElementById('authInterface');
                     const hiddenSpace = document.getElementById('loveDashboard');
                     
@@ -262,19 +269,18 @@
                     }, 400);
 
                 } else {
-                    // Modern design error handling
                     const statusBadge = document.getElementById('systemStatus');
-                    statusBadge.innerText = "Signature Match Failed";
-                    statusBadge.style.color = "#ff0055";
-                    statusBadge.style.background = "rgba(255, 0, 85, 0.1)";
-                    statusBadge.style.borderColor = "rgba(255, 0, 85, 0.2)";
+                    statusBadge.innerText = "Talisman Placed Incorrectly";
+                    statusBadge.style.color = "#ff0033";
+                    statusBadge.style.background = "rgba(204, 0, 0, 0.1)";
+                    statusBadge.style.borderColor = "rgba(204, 0, 0, 0.2)";
                     
                     userSequence = [];
                     
                     setTimeout(() => {
-                        statusBadge.innerText = "Ready • Awaiting Signature";
-                        statusBadge.style.color = "#a0aec0";
-                        statusBadge.style.background = "rgba(255, 255, 255, 0.05)";
+                        statusBadge.innerText = "Status: Night Approaching";
+                        statusBadge.style.color = "#cfd8dc";
+                        statusBadge.style.background = "rgba(255, 255, 255, 0.03)";
                         statusBadge.style.borderColor = "transparent";
                     }, 1500);
                 }
